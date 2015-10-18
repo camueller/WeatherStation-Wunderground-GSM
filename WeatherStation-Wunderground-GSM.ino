@@ -1,6 +1,6 @@
- /*
- This Arduino sketch controls a personal weather station and use an ethernet shield to upload data to wunderground.com.
- Details about the weather station can be found at http://www.avanux.de/space/Arduino/Wetterstation.
+/*
+ This Arduino sketch controls a personal weather station and uses a GSM shield to upload data to wunderground.com.
+ For updates check https://github.com/camueller/GSM-GPRS-GPS-Shield
  */
 
 //////////////
