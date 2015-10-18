@@ -160,6 +160,11 @@ void loopUpload(unsigned long now) {
     
     upoadIntervalBegin = now;
   }
+
+  // uploading may take up to 40 seconds, therefore we have to ignore
+  // the count increase during that time; otherwise we will see very 
+  // high wind speed because of that wrong count increase
+  initWindSpeedSignalCount();
 }
 
 void turnOnGsm() {
@@ -336,11 +341,6 @@ int httpGET(char* result, int resultlength)
   Serial.println(F("HTTP response received"));
 #endif	
 
-  // uploading may take up to 40 seconds, therefore we have to ignore
-  // the count increase during that time; otherwise we will very high
-  // wind speed because of that wrong count increase
-  initWindSpeedSignalCount();
-  
   return res;
 }
 
