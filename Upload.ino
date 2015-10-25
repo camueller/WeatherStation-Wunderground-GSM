@@ -38,6 +38,7 @@ const          char    BAROM[] PROGMEM           = "&baromin=";
 const          char    RAIN[] PROGMEM            = "&rainin=";
 const          char    RAIN_DAILY[] PROGMEM      = "&dailyrainin=";
 const          char    SOLARRADIATION[] PROGMEM  = "&solarradiation=";
+const          char    PRESSURE[] PROGMEM        = "&baromin=";
 const          char    UPDATERAW[] PROGMEM       = "&action=updateraw";
 const          char    HTTP_HOST[] PROGMEM       = " HTTP/1.0\nHost: ";
 const          char    SERVER[] PROGMEM          = "weatherstation.wunderground.com";
@@ -63,10 +64,11 @@ const          char* const path[] PROGMEM = { GET,             // 0
                                               RAIN,            // 17
                                               RAIN_DAILY,      // 18
                                               SOLARRADIATION,  // 19
-                                              UPDATERAW,       // 20
-                                              HTTP_HOST,       // 21
-                                              SERVER,          // 22
-                                              USER_AGENT       // 23
+                                              PRESSURE,        // 20
+                                              UPDATERAW,       // 21
+                                              HTTP_HOST,       // 22
+                                              SERVER,          // 23
+                                              USER_AGENT       // 24
                                             };
 
 const unsigned long    UPLOAD_INTERVAL_SECONDS = 300; // muss 300 sein
@@ -203,7 +205,7 @@ int httpGET(char* result, int resultlength)
   char *ptrBuffer = buffer;
 
   // extablish TCP connection to server
-  strcpy_P(buffer, (char*)pgm_read_word(&(path[22])));
+  strcpy_P(buffer, (char*)pgm_read_word(&(path[23])));
   while(n_of_at<3){
 	  if(!inet.connectTCP(ptrBuffer, 80)){
 	  	#ifdef DEBUG_UPLOAD
@@ -314,8 +316,14 @@ int httpGET(char* result, int resultlength)
   itoa(solarRadiation, buffer, 10);
   composeHttpGET(ptrBuffer);
 #endif
+#ifdef ENABLE_PRESSURE
+  strcpy_P(buffer, (char*)pgm_read_word(&(path[20])));
+  composeHttpGET(ptrBuffer);
+  pa2inHg(pressure, buffer);
+  composeHttpGET(ptrBuffer);
+#endif
 
-  for (int i = 20; i <= 23; i++)
+  for (int i = 21; i <= 24; i++)
   {
     strcpy_P(buffer, (char*)pgm_read_word(&(path[i])));
     composeHttpGET(ptrBuffer);

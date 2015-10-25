@@ -24,6 +24,7 @@
 #define ENABLE_RAIN 1
 #define ENABLE_SOLAR_RADIATION 1
 #define ENABLE_HUMIDITY 1
+// #define ENABLE_PRESSURE 1
 
 #define WDT_COUNTER_MAX 40  // 40=320s : Number of times of ISR(WDT_vect) to autoreset the board. I will autoreset the board after 8 secondes x counterMax
 volatile int wdtCounter; 
@@ -44,6 +45,7 @@ unsigned int   windGustDirection;
          float rainLastHour;
          float rainToday;
 unsigned int   solarRadiation;
+         float pressure;
 
 //////////////
 // Pins set up
@@ -99,10 +101,9 @@ void wdt_long_disable()
 //////////////
 void setup() {
 #ifdef DEBUG_WS
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for Leonardo only
-  }
+  setupLogging();
+#elif INFO_WS
+  setupLogging();
 #endif
 
   wdt_disable();
@@ -126,10 +127,20 @@ void setup() {
 #ifdef ENABLE_HUMIDITY
   setupHumidity();
 #endif
+#ifdef ENABLE_PRESSURE
+  setupPressure();
+#endif
 
 #ifdef UPLOAD
   setupUpload(now);
 #endif
+}
+
+void setupLogging() {
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo only
+  }
 }
 
 //////////////
@@ -162,6 +173,9 @@ void loop() {
 #endif
 #ifdef ENABLE_HUMIDITY
   loopHumidity();
+#endif
+#ifdef ENABLE_PRESSURE
+  loopPressure();
 #endif
 
 #ifdef UPLOAD
