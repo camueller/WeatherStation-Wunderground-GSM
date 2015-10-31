@@ -29,7 +29,7 @@ void setupWindDirection()
 
 void loopWindDirection(unsigned long now)
 { 
-    int windDirectionRead = analogRead(windDirectionPin);
+    int windDirectionRead = analogReadSmoothed(windDirectionPin);
     int windDirectionVoltage = map(windDirectionRead, 0, 1023, 0, 5000);
 #ifdef DEBUG_WS  
     Serial.print(F("wind direction: read="));

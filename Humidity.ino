@@ -19,7 +19,7 @@ void setupHumidity() {
 //////////////
 
 void loopHumidity() {
-  int value = analogRead(humidityPin);
+  int value = analogReadSmoothed(humidityPin);
 #ifdef DEBUG_WS  
     Serial.print(F("humidity (0-1023)="));
     Serial.println(value);

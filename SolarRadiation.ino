@@ -20,7 +20,7 @@ void setupSolarRadiation() {
 //////////////
 
 void loopSolarRadiation() {
-  int solarRadiationRead = analogRead(solarRadiationPin);
+  int solarRadiationRead = analogReadSmoothed(solarRadiationPin);
   solarRadiation = map(solarRadiationRead);
   
 #ifdef INFO_WS
