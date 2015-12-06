@@ -148,7 +148,7 @@ void loopUpload(unsigned long now) {
           for(int i=0;i<24;i++) {
             sprintf(searchFor," %02d:",i);
             if(gsm.IsStringReceived(searchFor)) {
-              hourOfDay = i + GMT_OFFSET;
+              hourOfDay = (i + GMT_OFFSET) % 24; // +1 : we are GMT+1 in winter and ignore DST
             }    
           }
         }
