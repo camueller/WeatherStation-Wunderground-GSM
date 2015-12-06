@@ -26,6 +26,9 @@ void loopHumidity() {
 #endif
   // from data sheet
   humidity = ((value/1023.0-0.1515)/0.00636)/(1.0546-0.00216*temperature);
+  if(humidity > 100) {
+    humidity = 100;
+  }
   dewpoint = dewPointFast(temperature, humidity);
   
 #ifdef INFO_WS
