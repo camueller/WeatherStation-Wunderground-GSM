@@ -360,34 +360,19 @@ int composeHttpGET(char* part) {
 }
 
 char* kph2mph(float kph, char *buffer) {
-  return ftoa(buffer, kph * 0.621371192, 1);
+  return dtostrf(kph * 0.621371192, 1, 1, buffer);
 }
 
 char* celsius2fahrenheit(float celsius, char *buffer) {
-  return ftoa(buffer, celsius * 1.8 + 32, 1);
+  return dtostrf(celsius * 1.8 + 32, 1, 1, buffer);
 }
 
 char* pa2inHg(float pa, char *buffer) {
   // http://www.engineeringtoolbox.com/pressure-units-converter-d_569.html
-  return ftoa(buffer, pa * 0.000296, 1);
+  return dtostrf(pa * 0.000296, 1, 1, buffer);
 }
 
-char* mm2in(float mm, char *buffer) {
-  return ftoa(buffer, mm / 25.4, 1);
-}
-
-char *ftoa(char *a, double f, int precision)
-{
- // http://forum.arduino.cc/index.php?topic=44262.0
- long p[] = {0,10,100,1000,10000,100000,1000000,10000000,100000000};
- 
- char *ret = a;
- long heiltal = (long)f;
- itoa(heiltal, a, 10);
- while (*a != '\0') a++;
- *a++ = '.';
- long desimal = abs((long)((f - heiltal) * p[precision]));
- itoa(desimal, a, 10);
- return ret;
+char* mm2in(double mm, char *buffer) {
+  return dtostrf(mm / 25.4, 1, 1, buffer);
 }
 
