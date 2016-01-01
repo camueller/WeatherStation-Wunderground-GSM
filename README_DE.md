@@ -89,3 +89,99 @@ Weil sich die Sonnenlaufbahn aber im Jahresverlauf ändert, mußte ich eine durc
 
 ![](pics/sonnenstand_mit_sensoren.gif)
 ![](pics/Pyranometer.JPG)![](pics/Pyranometer2.JPG)
+
+# Shield für Sensorelektronik
+
+Insgesamt habe ich dreimal eine Platine für die Sensorelektronik bestückt - nicht weil es so viel Spaß macht, sondern weil das Ergebnis nicht funktioniert hat.
+Nach der ersten Platine kam die Erkenntnis, daß die Sensorplatine mit dem Arduino korrekt funktioniert. Auch das GSM-Shield funktionierte mit dem Arduino. Aber, wenn alle 3 zusammengesteckt waren, ließ sich SIM900 des GSM-Shield nicht aktivieren. Probeweise habe ich einen anderen Shield (Solar Charger Shield) zwischen Arduino und GSM-Shield gesteckt - da gab es keine Probleme. Als nächstes habe ich testweise die von mit verwendeten Pin-Header ohne Platine zwischen Arduino und GSM-Shield gesteckt. Das ging manchmal, aber nicht immer. Dementsprechend habe ich statt der Pin-Header mit "Blechstreifen" eine normale __Stiftleiste mit 4-Kant-Stiften__ aufgelötet. Damit von oben das GSM-Shield aufgesteckt werden kann, habe ich auf die Stiftleiste eine __Buchsenleiste__ aufgelötet. Mit dieser relativ hochwertigen Verbindung habe ich keine Problem mehr gehabt.
+
+![](pics/StiftBuchsenleiste.JPG)
+
+Die erste Platine war übrigens eine normale Platine mit 2,54mm Lochraster, deren Größe ich auf die eines Arduino zugeschnitten hatte. Nachteil ist, daß man das Lochraster für einen der Pin-Header auftrennen muß, weil die Arduinos an dieser Stelle eine "verschobene" Buchse haben. Deshalb ist es auf jeden Fall empfehlenswert, einen __Proto-Shield__ zu verwenden, bei dem die Löcher alle schon an der richtigen Stelle sind.
+
+Nachfolgend sind __Schaltplan__, eine __"Breadboard"-Ansicht__ und der __fertig bestückte Protoshield__ zu sehen. Die Breadboard-Ansicht zeigt symbolisch auch die Sensoren am Mast, für deren Anbindung auf dem Proto-Shield ein gewinkelte Stiftleiste aufgelötet ist. Auf der Unterseite des Proto-Shield befindet sich eine Schiene (Draht) für +5V und eine Schiene für GND.
+
+![](pics/WetterstationDaidalos_schem.png)
+![](pics/WetterstationDaidalos_bb.png)
+![](pics/ProtoShield.JPG)
+![](pics/ProtoShieldVonUnten.JPG)
+
+Einzeln für sich genommen ist die Schaltung für jeden Sensor relativ simpel mit einer Ausnahme: Das Zählen der Schalterschließungen bei Anemometer und Regenmesser war schwieriger als gedacht, da statt einer Kontaktschliessung oft scheinbar mehrere Kontaktschliessungen erkannt wurden. Zunächst habe ich versucht, das Problem softwaremäßig zu lösen, indem innerhalb einer bestimmten Zeit (z.B. 20 ms) nur eine Schließung zu berücksichtigt wird. Damit ist jedoch relativ viel Code in der Funktion, die vom Interrupt aufgerufen wird. Also habe ich versucht, daß Problem hardwaremäßig zu lösen durch einen Widerstand und einen Kondensator. Der Erfolg war mäßig. Erst die zuätzliche Verwendung eines __Schmitt-Triggers__ (das ist der einzige IC auf dem Proto-Shield - ein CD40106BE) brachte den Durchbruch dahingehend, daß die Schalterschließungen korrekt gezählt wurden. Sehr hilfreich war dabei die Seite http://robotgestation.com/SensorForce.html (nicht mehr online, aber im [Internet-Archiv]( https://web.archive.org/web/20150607034250/http://robotgestation.com/SensorForce.html)), auf der die Hintergründe und verschiedenen Ansätze des Entprellens und auch der Schmitt-Trigger erläutert werden. Für einen 100nF-Kondensator (=0,0000001F) und einer Prelldauer von max. 10 ms (=0,01s) habe ich entsprechend der angebenen Formel den passenden Widerstand wie folgt berechnet:
+
+```
+Tc=Ladezeit des Kondensators in s
+C=Kapazität des Kondensators in F
+R=Widerstand in Ohm
+
+Tc=C*R
+R=Tc/C
+R=0,01/0,0000001
+R=100000 Ohm bzw. 100 kOhm
+```
+
+# Sketch
+
+Die komplette {link:Sketch|https://www.arduino.cc/en/Tutorial/Sketch} ist hier auf [Github](https://github.com/camueller/WeatherStation-Wunderground-GSM) verfügbar.
+Für die Übertragung der Sketch auf den Arduino wird die [Arduino Software IDE](https://www.arduino.cc/en/Main/Software) benötigt.
+Zusätzlich wird die oben erwähnte Bibliothek für den GSM-Shield sowie eine [Bibliothek für den Temperatur-Sensor](http://milesburton.com/index.php?title=Dallas_Temperature_Control_Library) benötigt.
+
+Die Formel zu Berechnung der Relativen Luftfeuchtigkeit habe ich ermittelt, indem ich die beiden im [Datenblatt des Sensors](http://sensing.honeywell.com/index.php?ci_id=49692) angegebenen Formeln ineinander eingesetzt habe:
+```
+aus dem Datenblatt:
+
+Vout = Vsupply * (0,00636 * SensorRH + 0,1515)
+
+umstellen nach SensorRH:
+
+SensorRH = (Vout / Vsupply - 0,1515) / 0,00636
+
+aus dem Datenblatt:
+
+TrueRH = SensorRH / (1,0546 - 0,00216 * Temp)
+
+einsetzen der nach SensorRH umgestellten Formel:
+
+TrueRH = ((Vout / Vsupply - 0,1515) / 0,00636) / (0,10545 - 0,00216 * Temp)
+
+wobei Vout/Vsupply ersetzt werden kann analogRead()/1023:
+
+TrueRH = ((analogRead() / 1023 - 0,1515) / 0,00636) / (0,10545 - 0,00216 * Temp)
+```
+
+Die Sketch nutzt den __Watchdog Timer__ des Atmel Mikrocontrollers, um den Arduino zu restarten, falls die Software einmal "hängen" bleiben sollte.
+
+# Solare Stromversorgung
+
+Bis zum Bau dieser Wetterstation hatte ich keinerlei Erfahrungen mit der Verwendung von Solarpanels. Wenn man sich etwas mit dem Thema beschäftigt, wird man jedoch schnell mit verschiedenen Volt- und Wattzahlen konfrontiert. Und dann ist da noch die Batterie, die durch das Solarpanel aufgeladen werden und die Wetterstation mit Strom versorgen soll.
+Als Antwort auf die Frage nach der Voltzahl scheint __12V__ eine sinnvolle Größe zu sein: Es gibt eine große Auswahl an Batterien und sie kann direkt zur Stromversorgung des Arduino verwendet werden. Die Wattzahl des Solarpanels wird nur unter idealen Bedingungen erreicht und sollte auch bei suboptimalen Bedingungen ausreichen, die Batterie zu laden. Deren Kapazität sollte wiederum ausreichen, selbst ohne Nachladen durch das Solarpanel einige Zeit die Wetterstation mit Strom zu versorgen. Wie lange das ist, hängt vom Stromverbrauch der Wetterstation ab, der maßgeblich durch den GSM-Shield beeinflußt wird, wie nachfolgende Grafik des gemessenen Stromverbrauchs zeigt:
+
+![](pics/Stromstaerke.png)
+
+Wenn der GSM-Shield nicht aktiv ist, beträgt die Stromstärke 0,051A. Für jede Datenübertragung ist der GSM-Shield ca. 50 Sekunden aktiv. In dieser Zeit kann die Stromstärke bis zu 0,403A betragen. Im Mittel beträgt sie auch in dieser Zeit allerdings nur 0,121A.
+Für den Stromverbrauch je Stunde ergibt sich damit:
+
+```
+GSM-Shield inaktiv: 3000s * 0,051A = 153,0 As
+GSM-Shield aktiv  :  600s * 0,121A =  72,6 As
+-------------------------------------------------
+Summe                                    225,6 As = 0,063 Ah
+```
+
+Die von mir verwendete, wartungsfreie 18Ah-Batterie kann damit also die Wetterstation 285 Stunden bzw. knapp 12 Tage ohne Nachladen durch das Solarpanel mit Strom versorgen. Möglicherweise ist das etwas überdimensioniert ...
+Damit die Batterie ausreichend geladen wird, habe ich mich für ein 20W-Solarpanel entschieden. Einen __Bausatz bestehend aus Solarpanel, Laderegler und Verbindungskabel__ habe ich von [Wattstunde](http://wattstunde.de) gekauft. Zur Montage des Solarpanels benötigt man noch eine __Solarmodul-Halterung__, die man entweder bauen oder kaufen kann.
+
+![](pics/SolarBausatz.png)
+![](pics/SolarmodulHalterung.png)
+
+# Die Montage der Wetterstation
+
+Der Arduino mit den Shields ist als zusätzlicher Schutz in einer __Kunststoffdose mit Schraubverschluß__ untergebracht. Diese ist durchsichtig, damit man die __GSM-Schield-LEDs__ trotzdem sehen kann. Die Kabel wurden einzeln durch Löscher im Deckel in in die Dose geführt, deren Größe passend zu den verwendeten __Gummi-Kabeldurchführungen__ ist. Innerhalb der Gummi-Kabeldurchführungen wurde das Kabel mit Heißkleber (5-Minuten-Epoxy würde genauso gehen) fixiert und abgedichtet. Ziel ist es, daß einzelne Sensorbaugruppen mit Kabel zu Test-/Ersatzzwecken ausgebaut werden können.
+
+Die Kunststoffdose ist zusammen mit dem __Laderegeler__ und der __Batterie__ in einem __Schaltschrank__ untergebracht. Der Laderegler wurde auf ein Stück Hartschaumplatte aufgeschraubt, damit man dessen LEDs gut erkennen kann. Die grüne LED in der Mitte signalisiert, daß (trotz des trüben Wetters!) gerade geladen wird. Der Bogen für die oberen LEDs  signalisiert den Batteriezustand (rot<25%, gelb 25-75%, grün>75% des Bereichs zwischen Vollladung und Unterspannungsabschaltung). 
+
+Der Schaltschrank selbst ist an dem __Container__ mit der Flugplatzausrüstung montiert. An seiner Seite ist der Mast der Wetterstation mit Schraubschellen montiert.
+Auf dem Dach des Containers wurde die __Solarpanelhalterung__ festgeschraubt mit Ausrichtung des Panels nach __Süden__ und einer __Panelneigung von 30 Grad__. Außerdem befindet sich die __GSM-Antenne__ mit Magnetfuß auf dem Dach des Containers.
+
+![](pics/Schaltschrank.JPG)
+![](pics/WetterstationMitSchaltschrank.JPG)
+![](pics/Container.JPG)
