@@ -1,4 +1,4 @@
-[Deutsche Seite](README_DE.md)
+[![Deutsche Seite](https://github.com/camueller/WeatherStation-Wunderground-GSM/blob/master/pics/FLAG_GERMANY.gif)](README_DE.md)
 
 GSM based weather station for the Weather Underground Network
 ======
