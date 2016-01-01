@@ -1,3 +1,5 @@
+[Deutsche Seite](README_DE.md)
+
 GSM based weather station for the Weather Underground Network
 ======
 I'm running this weather station on our paramotor airfield.
