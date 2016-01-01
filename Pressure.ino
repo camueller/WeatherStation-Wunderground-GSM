@@ -32,8 +32,16 @@ void loopPressure() {
     Serial.println("Couldnt find sensor");
     return;
   }
-  
-  pressure = baro.getPressure();
+
+  for(int i=0;i<5;i++) {
+    if(pressure < 1) {
+      pressure = baro.getPressure();
+    }
+    else {
+      break;
+    }
+    delay(20);
+  }
   
 #ifdef INFO_WS
   Serial.print(F("Pressure="));
