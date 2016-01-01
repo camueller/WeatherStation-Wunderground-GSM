@@ -2,11 +2,9 @@
 
 GSM based weather station for the Weather Underground Network
 ======
-I'm running this weather station on our paramotor airfield.
+Currently full description is only available in German using the link above.
 
-```html
-<object width="290" height="130"><param name="movie" value="http://www.wunderground.com/swf/pws_mini_rf_nc.swf?station=IHESSENN7&freq=&units=english&lang=EN" /><embed src="http://www.wunderground.com/swf/pws_mini_rf_nc.swf?station=IHESSENN7&freq=&units=english&lang=EN" type="application/x-shockwave-flash" width="290" height="130" /></object>
-```
+I'm running this weather station on our paramotor airfield.
 
 ### Hardware:
 - [Arduino UNO](https://www.arduino.cc/en/Main/ArduinoBoardUno)
