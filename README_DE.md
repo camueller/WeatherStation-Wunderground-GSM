@@ -77,6 +77,13 @@ Theoretisch kann man mechanische Sensonen für Windrichtung, Windgeschwindigkeit
 
 ![](pics/WH1080Ausseneinheit.png)
 
+## Windgeschwindigkeitssensor
+Allerdings hat sich gezeigt, dass der Windgeschwindigkeitssensor zu geringe Windgeschwindigkeiten misst - ein Problem dass [andere](https://groups.google.com/forum/#!topic/wview/ApDfFduWKn8) auch hatten und gelöst haben, indem sie das minderwertige Original-Kugellager durch ein hochwertiges Keramik-Kugellager ersetzt haben. Das Kugellager muss einen Aussendurchmesser von 10mm und einen Innendurchmesser von 5mm haben. Ich habe ein [Schmuhmacher U2862 Cermaic Bearing 5x10x4 Shielded (pr))(http://www.racing-cars.com/pp/Old_Cars_and_Parts/Fusion_21/U2698.html) verwendet, das eigentlich für Modellrennwagen gedacht ist.
+
+Zunächst dachte ich, daß man von innen an das Kugellager kommt, aber nachdem ich [diese Beschreibung](http://sandaysoft.com/forum/viewtopic.php?f=16&t=2474) gefunden hatte, war klar, dass man das Windrad einfach kräftig abziehen muss. Danach kann man den oben aus dem Kugellager herausragenden Kunststoff abschneiden und das alte Kugellager abziehen. Jetzt kann man das neue Kugellager aufschieben und mit einer kleinen Schraube und nichtrostender Unterlegscheibe sichern. Zum Schluss kann das Windrad wieder aufgesteckt werden.
+![](pics/WindmesserKugellagerAlt.JPG)![](pics/WindmesserVonUnten.JPG)![](pics/WindmesserKugellagerNeu.JPG)
+
+## Temperatur und Luftfeuctigkeit
 Die Elektronik im [Stevenson-Screen](http://de.wikipedia.org/wiki/Thermometerh%C3%BCtte) habe ich komplett entfernt und durch eine Platine mit den von mir gewählten Sensoren ersetzt:
 Zur Messung der __Temperatur__ verwende ich einen [Maxim DS18B20](https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf), der günstig ist und durch das 1-Wire-Protokoll digital ausgelesen werden kann.
 Bei der Messung der __Luftfeuchtigkeit__ ist es wichtig, einen Sensor zu wählen, der bis zum Taupunk korrekt messen kann, was beim [Honeywell HIH-5031](http://sensing.honeywell.com/index.php?ci_id=49692) der Fall ist.
@@ -84,6 +91,7 @@ Sämtliche Kontakte habe ich mit Heisskleber "ummantelt", damit es durch Tauwass
 
 ![](pics/StevensonScreenPlatine.JPG)![](pics/StevensonScreenGehaeuseOffen.JPG)![](pics/StevensonScreenGehaeuseGeschlossen.JPG)![](pics/StevensonScreen.JPG)
 
+## Sonneneinstrahlung
 Bis vor kurzem wußte ich nicht, daß ein Meßgerät zum Messen der __Sonneneinstrahlung__ [Pyranometer](http://de.wikipedia.org/wiki/Pyranometer) genannt wird. Die Messung dieser Größe hat mir die meisten Kopfzerbrechen bereitet. Da es mir nicht um eine theoretische Abhandlung des Themas geht und kommerzielle Meßgeräte schnelle vierstellige Euro-Beträge kosten, habe ich gezielt nach Do-It-Yourself-Lösungen zu diesem Thema gesucht. Zwei Ansätze habe ich dabei gefunden: Solarzelle und Photo-Dioden. Beide sind abhängig vom Einfallwinkel der Sonnenstrahlung, d.h. man muß den Sensor entweder dem Sonnenlauf nachführen oder mehrere Sensoren verwenden. Nachdem ich [diesen Bericht](http://www.icrepq.com/icrepq'10/598-Laghrouche.pdf) zu dem Thema gelesen hatte, entschied ich mich für die sehr kostengünstige Lösung mit __8 Photo-Dioden BPW34__ (10 Stück kosten ca. 5 Euro), deren Strom ziemlich linear zur Lichteinstrahlung verläuft. Diese sind auf einem __Alu-Flachband__ angebracht, das __kreisförmig__ gebogen ist und gegen die Horizontale geneigt ist. Die Neigung soll der Neigung der __Sonnenlaufbahn__ entsprechen, die man sich für einige deutsche Städte [hier](http://cgi.stadtklima-stuttgart.de/mirror/sonne.exe) im Jahresverlauf zeigen lassen kann. 
 Weil sich die Sonnenlaufbahn aber im Jahresverlauf ändert, mußte ich eine durchschnittliche Sonnenlaufbahn für meinen Wohnort festlegen. Diese ist 200 Grad in der Horizontalen und 40 Grad gegen den Horizont geneigt. Auf dieser durchschnittlichen Sonnenlaufbahn sind die 8 Photo-Dioden (entsprechend den grünen Punkten) auf dem Alu-Flachband platziert. Alle freiliegenden Kontake der Photo-Dioden habe ich mir __Heisskleber__ vor Feuchtigkeit geschützt.
 
