@@ -101,8 +101,8 @@ Die erste Platine war übrigens eine normale Platine mit 2,54mm Lochraster, dere
 
 Nachfolgend sind __Schaltplan__, eine __"Breadboard"-Ansicht__ und der __fertig bestückte Protoshield__ zu sehen. Die Breadboard-Ansicht zeigt symbolisch auch die Sensoren am Mast, für deren Anbindung auf dem Proto-Shield ein gewinkelte Stiftleiste aufgelötet ist. Auf der Unterseite des Proto-Shield befindet sich eine Schiene (Draht) für +5V und eine Schiene für GND.
 
-![](pics/WetterstationDaidalos_schem.png)
-![](pics/WetterstationDaidalos_bb.png)
+![](fritzing/WetterstationDaidalos_schem.png)
+![](fritzing/WetterstationDaidalos_bb.png)
 ![](pics/ProtoShield.JPG)
 ![](pics/ProtoShieldVonUnten.JPG)
 
