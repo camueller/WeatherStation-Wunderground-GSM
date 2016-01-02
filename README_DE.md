@@ -193,6 +193,6 @@ Die Kunststoffdose ist zusammen mit dem __Laderegeler__ und der __Batterie__ in 
 Der Schaltschrank selbst ist an dem __Container__ mit der Flugplatzausrüstung montiert. An seiner Seite ist der Mast der Wetterstation mit Schraubschellen montiert.
 Auf dem Dach des Containers wurde die __Solarpanelhalterung__ festgeschraubt mit Ausrichtung des Panels nach __Süden__ und einer __Panelneigung von 30 Grad__. Außerdem befindet sich die __GSM-Antenne__ mit Magnetfuß auf dem Dach des Containers.
 
+![](pics/Container.JPG)
 ![](pics/Schaltschrank.JPG)
 ![](pics/WetterstationMitSchaltschrank.JPG)
-![](pics/Container.JPG)
