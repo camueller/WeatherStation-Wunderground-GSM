@@ -81,6 +81,7 @@ Theoretisch kann man mechanische Sensonen für Windrichtung, Windgeschwindigkeit
 Allerdings hat sich gezeigt, dass der Windgeschwindigkeitssensor zu geringe Windgeschwindigkeiten misst - ein Problem dass [andere](https://groups.google.com/forum/#!topic/wview/ApDfFduWKn8) auch hatten und gelöst haben, indem sie das minderwertige Original-Kugellager durch ein hochwertiges Keramik-Kugellager ersetzt haben. Das Kugellager muss einen Aussendurchmesser von 10mm und einen Innendurchmesser von 5mm haben. Ich habe ein [Schmuhmacher U2862 Cermaic Bearing 5x10x4 Shielded (pr))(http://www.racing-cars.com/pp/Old_Cars_and_Parts/Fusion_21/U2698.html) verwendet, das eigentlich für Modellrennwagen gedacht ist.
 
 Zunächst dachte ich, daß man von innen an das Kugellager kommt, aber nachdem ich [diese Beschreibung](http://sandaysoft.com/forum/viewtopic.php?f=16&t=2474) gefunden hatte, war klar, dass man das Windrad einfach kräftig abziehen muss. Danach kann man den oben aus dem Kugellager herausragenden Kunststoff abschneiden und das alte Kugellager abziehen. Jetzt kann man das neue Kugellager aufschieben und mit einer kleinen Schraube und nichtrostender Unterlegscheibe sichern. Zum Schluss kann das Windrad wieder aufgesteckt werden.
+
 ![](pics/WindmesserKugellagerAlt.JPG)![](pics/WindmesserVonUnten.JPG)![](pics/WindmesserKugellagerNeu.JPG)
 
 ## Temperatur und Luftfeuctigkeit
