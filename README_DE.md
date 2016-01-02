@@ -65,7 +65,7 @@ Die Jumper des EFCom-GSM-Shields lassen nur die Verwendung der Pins D0 bis D3 zu
 #define _GSM_RXPIN_ 11 
 ```
 
-![](pics/ArduinoLeonardo.JPG)![](pics/EFCom.JPG)
+![](pics/ArduinoUNO.JPG)![](pics/EFCom.JPG)
 
 Die Elektronik für die fertige Wetterstation bestehend aus Arduino, dem Shield für Sensorelektronik und dem GSM-Shield ist auf den beiden nachfolgenden Bildern zu sehen.
 
