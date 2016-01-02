@@ -121,8 +121,7 @@ R=100000 Ohm bzw. 100 kOhm
 
 # Sketch
 
-Die komplette {link:Sketch|https://www.arduino.cc/en/Tutorial/Sketch} ist hier auf [Github](https://github.com/camueller/WeatherStation-Wunderground-GSM) verfügbar.
-Für die Übertragung der Sketch auf den Arduino wird die [Arduino Software IDE](https://www.arduino.cc/en/Main/Software) benötigt.
+Für die Übertragung der [Sketch](arduino) auf den Arduino wird die [Arduino Software IDE](https://www.arduino.cc/en/Main/Software) benötigt.
 Zusätzlich wird die oben erwähnte Bibliothek für den GSM-Shield sowie eine [Bibliothek für den Temperatur-Sensor](http://milesburton.com/index.php?title=Dallas_Temperature_Control_Library) benötigt.
 
 Die Formel zu Berechnung der Relativen Luftfeuchtigkeit habe ich ermittelt, indem ich die beiden im [Datenblatt des Sensors](http://sensing.honeywell.com/index.php?ci_id=49692) angegebenen Formeln ineinander eingesetzt habe:
