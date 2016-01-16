@@ -1,6 +1,6 @@
 /*
  This Arduino sketch controls a personal weather station and uses a GSM shield to upload data to wunderground.com.
- For updates check https://github.com/camueller/GSM-GPRS-GPS-Shield
+ For updates check https://github.com/camueller/WeatherStation-Wunderground-GSM
  */
 
 //////////////
