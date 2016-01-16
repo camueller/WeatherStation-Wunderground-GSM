@@ -1,6 +1,6 @@
 # Überblick
 
-Zunächst möchte ich klarstellen, daß ich zwar mit einem Lötkolben einigermaße umgehen kann, aber kein Elektroniker bin, sondern Software-Entwickler. Also keine Angst beim Nachbauen der hier beschriebenen Wetterstation :-)
+Zunächst möchte ich klarstellen, daß ich zwar mit einem Lötkolben einigermaßen umgehen kann, aber kein Elektroniker bin, sondern Software-Entwickler. Also keine Angst beim Nachbauen der hier beschriebenen Wetterstation :-)
 
 Nachdem ich einige Erfahrungen mit der Wetterstation auf meinem Haus sammeln konnte, hat sich der Wunsch nach einer Wetterstation auf unserem [Fluggelände](http://www.fg-daidalos.de/index.php/startseite) förmlich aufgedrängt.
 Während die Sensoren mit
@@ -193,4 +193,6 @@ Die Kunststoffdose ist zusammen mit dem __Laderegeler__ und der __Batterie__ in 
 Der Schaltschrank selbst ist an dem __Container__ mit der Flugplatzausrüstung montiert. An seiner Seite ist der Mast der Wetterstation mit Schraubschellen montiert.
 Auf dem Dach des Containers wurde die __Solarpanelhalterung__ festgeschraubt mit Ausrichtung des Panels nach __Süden__ und einer __Panelneigung von 30 Grad__. Außerdem befindet sich die __GSM-Antenne__ mit Magnetfuß auf dem Dach des Containers.
 
-![](pics/Schaltschrank.JPG)![](pics/WetterstationMitSchaltschrank.JPG)![](pics/Container.JPG)
+![](pics/Schaltschrank.JPG)
+![](pics/WetterstationMitSchaltschrank.JPG)
+![](pics/Container.JPG)
