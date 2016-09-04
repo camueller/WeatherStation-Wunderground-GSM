@@ -40,9 +40,9 @@ const          char    RAIN_DAILY[] PROGMEM      = "&dailyrainin=";
 const          char    SOLARRADIATION[] PROGMEM  = "&solarradiation=";
 const          char    PRESSURE[] PROGMEM        = "&baromin=";
 const          char    UPDATERAW[] PROGMEM       = "&action=updateraw";
-const          char    HTTP_HOST[] PROGMEM       = " HTTP/1.0\nHost: ";
+const          char    HTTP_HOST[] PROGMEM       = " HTTP/1.0\r\nHost: ";
 const          char    SERVER[] PROGMEM          = "weatherstation.wunderground.com";
-const          char    USER_AGENT[] PROGMEM      = "\nUser-Agent: Arduino\n\n";
+const          char    USER_AGENT[] PROGMEM      = "\r\nUser-Agent: Arduino\r\n\r\n";
 
 const          char* const path[] PROGMEM = { GET,             // 0
                                               PATH1,           // 1
@@ -71,7 +71,7 @@ const          char* const path[] PROGMEM = { GET,             // 0
                                               USER_AGENT       // 24
                                             };
 
-const unsigned long    UPLOAD_INTERVAL_SECONDS = 300; // muss 300 sein
+const unsigned long    UPLOAD_INTERVAL_SECONDS = 300;
 const unsigned int     GMT_OFFSET              = 1;
 unsigned       long    upoadIntervalBegin;
 InetGSM inet;
@@ -124,7 +124,7 @@ void loopUpload(unsigned long now) {
       //Read until serial buffer is empty.
       gsm.WhileSimpleRead();
 
-      const int dummyLen = 0;
+      const int dummyLen = 150;
       char dummy[dummyLen];
       if(httpGET(dummy, dummyLen) >= 0) {
 #ifdef DEBUG_UPLOAD
@@ -331,6 +331,7 @@ int httpGET(char* result, int resultlength)
   
   gsm.SimpleWrite(end_c);
 
+/*
   switch(gsm.WaitResp(10000, 10, "SEND OK")){
 	case RX_TMOUT_ERR: 
 		return 0;
@@ -339,8 +340,8 @@ int httpGET(char* result, int resultlength)
 		return 0; 
 	break;
   }
-  
-  delay(50);
+  */
+//  delay(50);
 #ifdef DEBUG_UPLOAD
   Serial.println(F("HTTP GET sent"));
 #endif	
